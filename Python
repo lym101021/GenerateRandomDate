@@ -1,0 +1,16 @@
+import random
+import datetime
+
+def generate_random_date(start_year, end_year):
+    # Генерирует случайный день и месяц
+    day = random.randint(1, 28)
+    month = random.randint(1, 12)
+    
+    # Генерирует случайный год в указанном диапазоне
+    year = random.randint(start_year, end_year)
+    
+    return datetime.date(year, month, day)
+
+# Пример использования
+random_date = generate_random_date(2000, 2020)
+print(random_date)
