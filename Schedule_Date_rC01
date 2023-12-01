@@ -1,0 +1,33 @@
+import random
+import datetime
+import matplotlib.pyplot as plt
+import holidays
+
+def generate_dates(start_date, num_days, use_percentage, include_weekends, include_holidays):
+    end_date = start_date + datetime.timedelta(days=num_days)
+    date_list = []
+    
+    for single_date in (start_date + datetime.timedelta(n) for n in range(num_days)):
+        if single_date.weekday() < 5 or include_weekends:  # 0-4 are weekdays
+            if single_date not in holidays.UK() or include_holidays:
+                date_list.append(single_date)
+
+    random_dates = random.sample(date_list, int(len(date_list) * (use_percentage / 100)))
+    return sorted(random_dates)
+
+# Запрос ввода от пользователя (здесь просто примеры)
+num_days_forward = 30  # Пример: 30 дней вперед
+use_percentage = 50  # Пример: использовать 50% от выбранных дней
+include_weekends = True  # Пример: включить выходные
+include_holidays = False  # Пример: не включать праздничные дни
+
+# Генерация случайных дат
+today = datetime.date.today()
+random_dates = generate_dates(today, num_days_forward, use_percentage, include_weekends, include_holidays)
+
+# Визуализация графика
+plt.plot(random_dates, [1 for _ in random_dates], 'ro')
+plt.gca().axes.get_yaxis().set_visible(False)
+plt.title("Случайные даты")
+plt.xlabel("Дата")
+plt.show()
